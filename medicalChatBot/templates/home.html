@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="container" class="container">
+        <img src="https://cdn.pixabay.com/photo/2020/01/02/16/38/chatbot-4736275_960_720.png" height="400vh" alt="Chatbot clipart">
+         <div id="chat" class="chat">
+          <div id="messages" class="messages"></div>
+          {%csrf_token%}
+            <input id="input" type="text" placeholder="Write something..." autocomplete="on" autofocus="true" />
+        </div>
+      </div>
+
+    
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+    <script>
+        $(document).ready(function(){
+            var name
+            var disease_input
+            var feature_names={{feature_names|safe}}
+            //var questions={{intialQuestions|safe}}
+            addChatEntryBot("What is your name")
+            $(document).on('keypress','#input',function(e){
+        if(e.which == 13){
+            e.preventDefault();
+            if(name==null){
+                name=$('#input').val()
+                $('#input').val('');
+                addChatEntryUser(name)
+                addChatEntryBot("Welcome "+name)
+                setTimeout(() => {
+                    addChatEntryBot("Enter the symptom you are experiencing")
+                    $( "#input" ).autocomplete({  
+                        source: feature_names  
+                      }); 
+                }, 2000);
+            }
+            else if(disease_input==null){
+                disease_input=$('#input').val()
+                $('#input').val('');
+                
+            }
+            else{
+                $.ajax({
+                    type:'POST',
+                    url:'{% url "medicalChatBot:predict" %}',
+                    data:{
+                        input:$('#input').val(),
+                        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                        action: 'post'
+                    },
+                    success:function(json) {
+                        $('#input').val('');
+                        addChatEntryWithUserAndBotInput(json['input'],json['result']);
+                    },
+                    error : function(xhr,errmsg,err) {
+        
+                    }
+                });
+            }
+            
+
+        }
+    });
+    function addChatEntryWithUserAndBotInput(input, product) {
+        addChatEntryUser(input)
+        addChatEntryBot(product)
+    }
+
+    function addChatEntryBot(product) {
+        const messagesContainer = document.getElementById("messages");
+        
+        let botDiv = document.createElement("div");
+        let botText = document.createElement("span");
+        botDiv.id = "bot";
+        botDiv.className = "bot response";
+        botText.innerText = "Typing...";
+        botDiv.appendChild(botText);
+        messagesContainer.appendChild(botDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        setTimeout(() => {
+            botText.innerText = `${product}`;
+        }, 2000); 
+    }
+
+    function addChatEntryUser(input) {
+        const messagesContainer = document.getElementById("messages");
+        
+        let userDiv = document.createElement("div");
+        userDiv.id = "user";
+        userDiv.className = "user response";
+        userDiv.innerHTML = `${input}`;
+        messagesContainer.appendChild(userDiv);
+    }
+});
+        
+
+    </script>
+</body>
+</html>
