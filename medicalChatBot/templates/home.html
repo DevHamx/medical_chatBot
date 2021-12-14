@@ -46,17 +46,13 @@
                       }); 
                 }, 2000);
             }
-            else if(disease_input==null){
-                disease_input=$('#input').val()
-                $('#input').val('');
-                
-            }
             else{
+                disease_input=$('#input').val()
                 $.ajax({
                     type:'POST',
                     url:'{% url "medicalChatBot:predict" %}',
                     data:{
-                        input:$('#input').val(),
+                        input:disease_input,
                         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                         action: 'post'
                     },

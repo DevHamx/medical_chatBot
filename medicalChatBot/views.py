@@ -14,7 +14,6 @@ feature_names=feature_names.index.tolist()
 # ]
 #chk_dis=",".join(feature_names).split(",")
 symptoms_present = []
-
 # Create your views here.
 def index(request):
 
@@ -27,7 +26,8 @@ def predict(request):
 
         # Receive data from client
         input = request.POST.get('input')
- 
+        symptoms_present.append(input)
+        print(symptoms_present)
         # Make prediction
        # result = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])
 
@@ -35,4 +35,4 @@ def predict(request):
 
         #PredResults.objects.create(sepal_length=sepal_length, sepal_width=sepal_width, petal_length=petal_length,petal_width=petal_width, classification=classification)
         print(feature_names[0])
-        return JsonResponse({'result': feature_names[0],'input':input},safe=False)
+        return JsonResponse({'result':'Are you experiencing any '+str(feature_names[0]),'input':input},safe=False)
