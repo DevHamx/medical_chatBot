@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">  
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     <title>Document</title>
 </head>
 <body>
     
     <div id="container" class="container">
-        <img src="https://cdn.pixabay.com/photo/2020/01/02/16/38/chatbot-4736275_960_720.png" height="400vh" alt="Chatbot clipart">
+        <img src="{% static 'media/chatbot.webp' %}" height="400vh" alt="Chatbot clipart">
          <div id="chat" class="chat">
           <div id="messages" class="messages"></div>
           {%csrf_token%}
@@ -23,7 +23,7 @@
     
 
     <script src="{% static 'js/jquery.js' %}"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>  
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>  
     <script>
         $(document).ready(function(){
             var name
@@ -47,12 +47,17 @@
                 }, 2000);
             }
             else{
-                disease_input=$('#input').val()
+                if(disease_input==null){
+                    disease_input=$('#input').val()
+                    $( "#input" ).autocomplete({  
+                        disabled:true
+                      });
+                }
                 $.ajax({
                     type:'POST',
                     url:'{% url "medicalChatBot:predict" %}',
                     data:{
-                        input:disease_input,
+                        input:$('#input').val(),
                         csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
                         action: 'post'
                     },
