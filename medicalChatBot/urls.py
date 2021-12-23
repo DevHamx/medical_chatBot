@@ -22,5 +22,6 @@ app_name='medicalChatBot'
 urlpatterns = [
     path('', views.index,name="home"),
     path('predict/',views.predict,name='predict'),
+    path('result/',views.result,name='result')
     #url()
 ]

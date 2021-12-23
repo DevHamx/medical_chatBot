@@ -54,3 +54,6 @@ def predict(request):
             return JsonResponse({'result':makePredict(symptoms_present),'input':input},safe=False)
         else:
             return JsonResponse({'result':'Are you experiencing any '+str(feature_names[indexFeatures]),'input':input},safe=False)
+
+def result(request):
+    return render(request,"resultat.html")
