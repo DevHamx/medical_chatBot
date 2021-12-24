@@ -13,15 +13,15 @@
     <div>
         <p>Nous avons résumé toutes les informations que vous avez saisies ci-dessous.</p>
         <h2>Plainte principale :</h2>
-        <li><ul><h1>Test</h1></ul></li>
+        <li><ul><h1>{{ r.plainte }}</h1></ul></li>
         <h2>Histoire de la maladie actuelle :</h2>
-        <p>Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum.</p>
+        <p>{{ r.histoire }}</p>
         <h2>Examen des systèmes :</h2>
-        <p>Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum.</p>
+        <p>{{ r.examen }}</p>
         <h2>Assesment :</h2>
-        <p>Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum.</p>
+        <p>{{ r.assesment }}</p>
         <h2>Les causes les plus probables :</h2>
-        <li><ul>Test1</ul><ul>Test2</ul><ul>Test3</ul></li>
+        <li><ul>{{ r.causes }}1</ul><ul>{{ r.causes }}2</ul><ul>{{ r.causes }}3</ul></li>
     </div>
     
     <script src="{% static 'js/jquery.js' %}"></script>

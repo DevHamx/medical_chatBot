@@ -3,6 +3,8 @@ from django.http import JsonResponse
 import pandas as pd
 import numpy as np
 
+from medicalChatBot.models import Resultat
+
 
  # Unpickle model
 model = pd.read_pickle("medicalChatBot/ML/model.pickle")
@@ -54,4 +56,10 @@ def predict(request):
             return JsonResponse({'result':'Are you experiencing any '+str(feature_names[indexFeatures]),'input':input},safe=False)
 
 def result(request):
-    return render(request,"resultat.html")
+    r = Resultat()
+    r.plainte = "test"
+    r.histoire = "test"
+    r.examen = "test"
+    r.assesment = "test"
+    r.causes = "test"
+    return render(request,"resultat.html",{'r': r})
