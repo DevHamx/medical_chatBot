@@ -109,6 +109,8 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
         setTimeout(() => {
             botText.innerText = `${product}`;
+            $('#input').removeAttr('disabled')
+            $('#input').focus()
         }, 2000); 
     }
 
@@ -120,6 +122,7 @@
         userDiv.className = "user response";
         userDiv.innerHTML = `${input}`;
         messagesContainer.appendChild(userDiv);
+        $('#input').attr('disabled','disabled')
     }
 });
         
