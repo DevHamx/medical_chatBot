@@ -7,10 +7,11 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">  
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/spinner.css' %}">
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     <div id="container" class="container">
         <img src="{% static 'media/chatbot.webp' %}" height="400vh" alt="Chatbot clipart">
          <div id="chat" class="chat">
@@ -26,6 +27,7 @@
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>  
     <script>
         $(document).ready(function(){
+            $loading = $('.lds-roller');
             var name
             var disease_input
             var feature_names={{feature_names|safe}}
@@ -62,8 +64,22 @@
                         action: 'post'
                     },
                     success:function(json) {
-                        $('#input').val('');
-                        addChatEntryWithUserAndBotInput(json['input'],json['result']);
+                        if (json['result']==undefined) { // fiha mochkil
+                            addChatEntryUser($('#input').val())
+                            $('#input').val('');
+                            $loading.css({"visibility":"visible"});
+                            $('#container').css({"opacity":0.25});
+                            setTimeout(() => {
+                                var newDoc = document.open("text/html","replace");
+                                newDoc.write(json);
+                                newDoc.close()
+                            }, 2000); 
+                            
+                        } else {
+                            $('#input').val('');
+                            addChatEntryWithUserAndBotInput(json['input'],json['result']); 
+                        }
+                        
                     },
                     error : function(xhr,errmsg,err) {
         
