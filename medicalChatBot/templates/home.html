@@ -31,6 +31,7 @@
             var name
             var disease_input
             var feature_names={{feature_names|safe}}
+            feature_names=feature_names.map((str)=>str.replace(/_/g, ' '));
             //var questions={{intialQuestions|safe}}
             addChatEntryBot("What is your name")
             $(document).on('keypress','#input',function(e){

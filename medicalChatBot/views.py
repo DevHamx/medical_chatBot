@@ -51,9 +51,9 @@ def predict(request):
             symptoms_present.append(input)
         indexFeatures+=1
         if 2<=indexFeatures: #feature_names_len
-            return render(request,"resultat.html")
+            return result(request)
         else:
-            return JsonResponse({'result':'Are you experiencing any '+str(feature_names[indexFeatures]),'input':input},safe=False)
+            return JsonResponse({'result':'Are you experiencing any '+str(feature_names[indexFeatures]).replace("_", " "),'input':input},safe=False)
 
 def result(request):
     r = Resultat()
