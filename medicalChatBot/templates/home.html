@@ -7,20 +7,27 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">  
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+
     <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
-    
+
+
+
     <div id="container" class="container">
         <img src="{% static 'media/chatbot.webp' %}" height="400vh" alt="Chatbot clipart">
-         <div id="chat" class="chat">
-          <div id="messages" class="messages"></div>
-          {%csrf_token%}
-            <input id="input" type="text" placeholder="Write something..." autocomplete="on" autofocus="true" />
-        </div>
-      </div>
+         <div id="chat"  class="chat">
 
-    
+          <div id="messages"   class="messages">
+
+          </div>
+          {%csrf_token%}
+                 <input id="input"  class="alert alert-secondary" role="alert" type="text" placeholder="Enter Message ..."   autocomplete="on" autofocus="true"/>
+         </div>
+      </div>
 
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>  
@@ -100,7 +107,7 @@
         
         let userDiv = document.createElement("div");
         userDiv.id = "user";
-        userDiv.className = "user response";
+        userDiv.className = "user responsee";
         userDiv.innerHTML = `${input}`;
         messagesContainer.appendChild(userDiv);
     }

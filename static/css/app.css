@@ -16,6 +16,9 @@
 	  background-color: silver;
 	  height: 100%;
 	  margin: 0;
+	  background-image: url("backk.jpeg"), linear-gradient(#29292A, #EFEFF7); /* W3C */
+
+
   }
   
   span {
