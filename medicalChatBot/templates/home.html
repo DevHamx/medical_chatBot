@@ -7,16 +7,24 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">  
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
+<<<<<<< HEAD
 
+=======
+    <link rel="stylesheet" href="{% static 'css/spinner.css' %}">
+>>>>>>> 0fd691f3823aad864082ceef3d6c8100a251af94
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body>
+<<<<<<< HEAD
 
 
 
+=======
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+>>>>>>> 0fd691f3823aad864082ceef3d6c8100a251af94
     <div id="container" class="container">
         <img src="{% static 'media/chatbot.webp' %}" height="400vh" alt="Chatbot clipart">
          <div id="chat"  class="chat">
@@ -33,9 +41,11 @@
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>  
     <script>
         $(document).ready(function(){
+            $loading = $('.lds-roller');
             var name
             var disease_input
             var feature_names={{feature_names|safe}}
+            feature_names=feature_names.map((str)=>str.replace(/_/g, ' '));
             //var questions={{intialQuestions|safe}}
             addChatEntryBot("What is your name")
             $(document).on('keypress','#input',function(e){
@@ -69,8 +79,22 @@
                         action: 'post'
                     },
                     success:function(json) {
-                        $('#input').val('');
-                        addChatEntryWithUserAndBotInput(json['input'],json['result']);
+                        if (json['result']==undefined) { // fiha mochkil
+                            addChatEntryUser($('#input').val())
+                            $('#input').val('');
+                            $loading.css({"visibility":"visible"});
+                            $('#container').css({"opacity":0.25});
+                            setTimeout(() => {
+                                var newDoc = document.open("text/html","replace");
+                                newDoc.write(json);
+                                newDoc.close()
+                            }, 2000); 
+                            
+                        } else {
+                            $('#input').val('');
+                            addChatEntryWithUserAndBotInput(json['input'],json['result']); 
+                        }
+                        
                     },
                     error : function(xhr,errmsg,err) {
         
@@ -99,6 +123,8 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
         setTimeout(() => {
             botText.innerText = `${product}`;
+            $('#input').removeAttr('disabled')
+            $('#input').focus()
         }, 2000); 
     }
 
@@ -110,6 +136,7 @@
         userDiv.className = "user responsee";
         userDiv.innerHTML = `${input}`;
         messagesContainer.appendChild(userDiv);
+        $('#input').attr('disabled','disabled')
     }
 });
         

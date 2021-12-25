@@ -3,6 +3,8 @@ from django.http import JsonResponse
 import pandas as pd
 import numpy as np
 
+from medicalChatBot.models import Resultat
+
 
  # Unpickle model
 model = pd.read_pickle("medicalChatBot/ML/model.pickle")
@@ -18,7 +20,9 @@ indexFeatures=-1
 feature_names_len=len(feature_names)
 # Create your views here.
 def index(request):
-
+    global symptoms_present,indexFeatures
+    symptoms_present = []
+    indexFeatures=-1
     return render(request,"home.html",{'feature_names': feature_names})
 
 def makePredict(symptoms_exp):
@@ -43,17 +47,19 @@ def predict(request):
         if input=='yes':
             symptoms_present.append(feature_names[indexFeatures])
             print(symptoms_present)
-        # Make prediction
-       # result = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])
-
-        #classification = result[0]
-
-        #PredResults.objects.create(sepal_length=sepal_length, sepal_width=sepal_width, petal_length=petal_length,petal_width=petal_width, classification=classification)
+        elif len(symptoms_present)==0:
+            symptoms_present.append(input)
         indexFeatures+=1
-        if feature_names_len<=indexFeatures:
-            return JsonResponse({'result':makePredict(symptoms_present),'input':input},safe=False)
+        if 2<=indexFeatures: #feature_names_len
+            return result(request)
         else:
-            return JsonResponse({'result':'Are you experiencing any '+str(feature_names[indexFeatures]),'input':input},safe=False)
+            return JsonResponse({'result':'Are you experiencing any '+str(feature_names[indexFeatures]).replace("_", " "),'input':input},safe=False)
 
 def result(request):
-    return render(request,"resultat.html")
+    r = Resultat()
+    r.plainte = "test"
+    r.histoire = "test"
+    r.examen = "test"
+    r.assesment = "test"
+    r.causes = "test"
+    return render(request,"resultat.html",{'r': r})
