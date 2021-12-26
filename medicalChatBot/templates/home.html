@@ -44,10 +44,10 @@
             $(document).on('keypress','#input',function(e){
         if(e.which == 13){
             e.preventDefault();
+            addChatEntryUser($('#input').val())
             if(name==null){
                 name=$('#input').val()
                 $('#input').val('');
-                addChatEntryUser(name)
                 addChatEntryBot("Welcome "+name)
                 setTimeout(() => {
                     addChatEntryBot("Enter the symptom you are experiencing")
@@ -72,20 +72,32 @@
                         action: 'post'
                     },
                     success:function(json) {
-                        if (json['result']==undefined) { // fiha mochkil
-                            addChatEntryUser($('#input').val())
+                        if (json['predict']!=undefined) {
                             $('#input').val('');
                             $loading.css({"visibility":"visible"});
                             $('#container').css({"opacity":0.25});
                             setTimeout(() => {
-                                var newDoc = document.open("text/html","replace");
-                                newDoc.write(json);
-                                newDoc.close()
+                                //var newDoc = document.open("text/html","replace");
+                                //newDoc.write(json);
+                                //newDoc.close()
+                                $loading.css({"visibility":"hidden"});
+                                $('#container').css({"opacity":1});
+                                addChatEntryBot(json['predict'])
+                                const messagesContainer = document.getElementById("messages");
+                                
+                                let botDiv = document.createElement("div");
+                                let botButton = document.createElement("button");
+                                botDiv.id = "bot";
+                                botDiv.className = "bot response button_info";
+                                botButton.innerText = "Press To see More Informations";
+                                botDiv.appendChild(botButton);
+                                messagesContainer.appendChild(botDiv);
+                                messagesContainer.scrollTop = messagesContainer.scrollHeight;
                             }, 2000); 
                             
                         } else {
                             $('#input').val('');
-                            addChatEntryWithUserAndBotInput(json['input'],json['result']); 
+                            addChatEntryBot(json['result']); 
                         }
                         
                     },
@@ -98,10 +110,6 @@
 
         }
     });
-    function addChatEntryWithUserAndBotInput(input, product) {
-        addChatEntryUser(input)
-        addChatEntryBot(product)
-    }
 
     function addChatEntryBot(product) {
         const messagesContainer = document.getElementById("messages");
