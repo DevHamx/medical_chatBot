@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'media/icon.jpeg' %}" />
+
+
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="overviewInfo">
+      <div>
+        <img src="{% static 'media/icon.jpeg' %}" alt="">
+        <h3>Welcome to Medical ChatBot </h3><br> <br>
+      </div>
+      <div class="grouptext">
+        <p class="text">Medical ChatBot chatBot will be asking you a few questions about your symptoms to facilitate the
+          upcoming encounter with your doctor.</p> <br>
+      </div>
+      <div class="grouptext">
+        <p class="text">Medical ChatBot is designed to help with general medical conditions.</p> <br>
+      </div>
+      <div class="grouptext">
+        <p class="text">Medical ChatBot does not facilitate medical emergencies. If you think you have a medical
+          emergency, call your doctor or your local emergency number.</p> <br>
+      </div>
+      <div class="grouptext">
+        <p> <b>If you’re ready, let’s get started.</b> <br> <br>
+        </p>
+      </div>
+    </div>
+    <div class="productSpecifications">
+
+      <label class="container">
+        <p class="check">I have read and accepted the <b style="color:rgb(35, 130, 219) ;"> Terms of use</b> , <b
+            style="color:rgb(35, 130, 219) ;">Privacy Policy </b> And <b style="color:rgb(35, 130, 219) ;">Cookie Policy
+          </b>
+          <input type="checkbox" onchange="document.getElementById('go').disabled = !this.checked;">
+          <span class="checkmark"></span>
+      </label>
+    </div>
+
+
+
+      <div class="checkoutButton">
+        <div class="priceTag">
+
+        </div>
+        <button id="go" class="preorder" disabled>
+          <p>GET STARTED</p>
+          
+        </button>
+      </div>
+  </div>
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      $('#go').click(function (e) {
+        location.href = "{% url 'medicalChatBot:home'%}"
+
+      });
+    });
+  </script>
+</body>
+
+</html>

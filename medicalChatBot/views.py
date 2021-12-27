@@ -10,9 +10,7 @@ from medicalChatBot.ML import classifier
 
 
 #make model
-print("=============================")
 feature_names, prognosis = classifier.makeModel()
-print(prognosis)
 #Unpickle model
 model = pd.read_pickle("medicalChatBot/ML/model.pickle")
 df=pd.read_csv('medicalChatBot/ML/proposition.csv')
@@ -41,8 +39,12 @@ listeproposal=[]
 symptoms_present = []
 indexFeatures=-1
 listeproposal_len=0
+
 # Create your views here.
 def index(request):
+    return render(request,"index.html")
+
+def home(request):
     global symptoms_present,indexFeatures
     symptoms_present = []
     indexFeatures=-1
