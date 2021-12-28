@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome</title>
   {% load static %}
+  <link rel="stylesheet" href="{% static 'css/spinner.css' %}">
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'media/icon.jpeg' %}" />
 
@@ -14,6 +15,18 @@
 </head>
 
 <body>
+  <!-- LOADER -->
+  <div id="overlayer"></div>
+  <div class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+ </div>
   <div class="wrapper">
     <div class="overviewInfo">
       <div>
@@ -61,11 +74,14 @@
   </div>
   <script src="{% static 'js/jquery.js' %}"></script>
   <script>
+    
     $(document).ready(function () {
       $('#go').click(function (e) {
         location.href = "{% url 'medicalChatBot:home'%}"
 
       });
+      $(".lds-roller").delay(2000).fadeOut("slow");
+      $("#overlayer").delay(2000).fadeOut("slow");
     });
   </script>
 </body>

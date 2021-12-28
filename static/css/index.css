@@ -286,3 +286,19 @@ button[disabled]{
   .text{
 
     font-family: "Gill Sans", sans-serif;  }
+
+    #overlayer {
+      width:100%;
+      height:100%;  
+      position:absolute;
+      z-index:1;
+      background:#D6E5FA;
+    }
+    .lds-roller {
+      visibility: visible !important;
+      display: inline-block;
+      position: absolute;
+      z-index:3;
+      top: 50%;
+      animation: loader 2s infinite ease;
+    }
