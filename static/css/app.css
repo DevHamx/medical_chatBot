@@ -36,7 +36,7 @@
 	  background-color:#CAD8DF;
 	  border-radius:20px;
 	  padding: 14px;
-      font-size:13px;
+      font-size:16px;
   }
   .container {
 	  display: flex;
@@ -65,7 +65,7 @@
   .messages {
 	  display: flex;
 	  flex-direction: column;
-	  overflow: scroll;
+	  overflow: auto;
 	  height: 100%;
 	  width: 100%;
 	  background-color: white;
@@ -74,7 +74,6 @@
 	  border-radius: 30px;
       border: solid;
 	  opacity: 0.8;
-
 }
   #bot {
 	  margin-right: auto;
@@ -87,7 +86,7 @@
   .bot {
 	  font-family: Consolas, 'Courier New', Menlo, source-code-pro, Monaco,
 	  monospace;
-	  font-size:13px;
+	  font-size:16px;
       margin:20px;
 
   }
