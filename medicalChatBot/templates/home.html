@@ -38,8 +38,17 @@
 
             </div>
             {%csrf_token%}
+            <div class="cd-switch">
+                <div class="switch">	
+                  <input type="radio" name="choice" id="yes" checked>
+                  <label for="yes">Yes</label>
+                  <input type="radio" name="choice" id="no">
+                  <label for="no">No</label>
+                </div>
+            </div> 
             <input id="input" class="alert alert-secondary" role="alert" type="text" placeholder="Enter Message ..."
                 autocomplete="on" autofocus="true" />
+            
         </div>
     </div>
 
@@ -75,7 +84,9 @@
                         $("#input").autocomplete({
                             disabled: true
                         });
-                    }
+                        $('#input').css({ "visibility": "hidden" });
+                        $('.cd-switch').css({ "visibility": "visible" });
+                            }
                     $.ajax({
                         type: 'POST',
                         url: '{% url "medicalChatBot:predict" %}',
@@ -85,35 +96,8 @@
                             action: 'post'
                         },
                         success: function (json) {
-                            if (json['predict'] != undefined) {
-                                $('#input').val('');
-                                $loading.css({ "visibility": "visible" });
-                                $('#container').css({ "opacity": 0.25 });
-                                setTimeout(() => {
-                                    //var newDoc = document.open("text/html","replace");
-                                    //newDoc.write(json);
-                                    //newDoc.close()
-                                    $loading.css({ "visibility": "hidden" });
-                                    $('#container').css({ "opacity": 1 });
-                                    addChatEntryBot(json['predict'])
-                                    const messagesContainer = document.getElementById("messages");
-
-                                    let botDiv = document.createElement("div");
-                                    let botButton = document.createElement("button");
-                                    botDiv.id = "bot";
-                                    botDiv.className = "bot response button_info";
-                                    botButton.innerText = "Press To see More Informations";
-                                    document.location.href = '/result';
-                                    botDiv.appendChild(botButton);
-                                    messagesContainer.appendChild(botDiv);
-                                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                                }, 2000);
-
-                            } else {
                                 $('#input').val('');
                                 addChatEntryBot(json['result']);
-                            }
-
                         },
                         error: function (xhr, errmsg, err) {
 
@@ -124,7 +108,52 @@
 
             }
         });
+        $('input[type=radio]').click(function(e) {
+           input=this.id
+           addChatEntryUser(input)
+           $.ajax({
+            type: 'POST',
+            url: '{% url "medicalChatBot:predict" %}',
+            data: {
+                input: input,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                action: 'post'
+            },
+            success: function (json) {
+                if (json['predict'] != undefined) {
+                    $loading.css({ "visibility": "visible" });
+                    $('#container').css({ "opacity": 0.25 });
+                    setTimeout(() => {
+                        //var newDoc = document.open("text/html","replace");
+                        //newDoc.write(json);
+                        //newDoc.close()
+                        $loading.css({ "visibility": "hidden" });
+                        $('#container').css({ "opacity": 1 });
+                        addChatEntryBot(json['predict'])
+                        const messagesContainer = document.getElementById("messages");
 
+                        let botDiv = document.createElement("div");
+                        let botButton = document.createElement("button");
+                        botDiv.id = "bot";
+                        botDiv.className = "bot response button_info";
+                        botButton.innerText = "Press To see More Informations";
+                        document.location.href = '/result';
+                        botDiv.appendChild(botButton);
+                        messagesContainer.appendChild(botDiv);
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    }, 2000);
+
+                } else {
+                    addChatEntryBot(json['result']);
+                }
+
+            },
+            error: function (xhr, errmsg, err) {
+
+            }
+        });
+           
+        });
         function addChatEntryBot(product) {
             const messagesContainer = document.getElementById("messages");
 

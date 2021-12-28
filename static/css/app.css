@@ -95,6 +95,51 @@
 	  height: 25px;
 
   }
+
+  .cd-switch {
+	text-align: center;
+	visibility: hidden;
+  }
+  
+  label {
+	cursor: pointer;
+	text-transform: uppercase;
+	width: 85px;
+	padding: 15px 0;
+	text-align: center;
+	display: inline-block;
+	-webkit-transition: all 0.4s;
+	-moz-transition: all 0.4s;
+	transition: all 0.4s;
+	margin-right: 15px;
+	margin-left: 40;
+	display: flex;
+	align-items: center;
+	color:black;
+	background-color:#CAD8DF;
+	border-radius:15px;
+	font-size:16px;
+  }
+  
+  .switch {
+	position: absolute;
+	display: inline-block;
+	left: 50%;
+	right: auto;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
+	transform: translateX(-50%);
+	z-index: 1;
+	margin: 1em 0;
+  }
+  .switch input[type=radio] {
+	visibility: hidden;
+	position: absolute;
+	height: 100%;
+  }
+
   /* Mobile */
 
   @media only screen and (max-width: 980px) {
