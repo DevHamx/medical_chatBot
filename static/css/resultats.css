@@ -12,6 +12,7 @@ box-sizing: border-box;
  --lightblue: #430349;
  --darkblue: #09669c;
  --text-color: #D5E1EF;
+ --my-end-width: 100%;
 }
 .check{
   color: white;
@@ -31,7 +32,7 @@ body{
   padding: 20px 0px;
 }
 .wrapper{
-  width:900px;
+  width:1000px;
   border-radius: 40px;
   background-image: var(--bg-shape-color);
   overflow: hidden;
@@ -164,7 +165,6 @@ h3 {
 /* checkout button*/
 button.preorder {
     margin-left: 240px;
-    cursor: pointer;
     width: 130px;
     height: 40px;
     margin-top: 30px;
@@ -220,12 +220,10 @@ button[disabled]{
     transform: rotate(-70deg) translate( 10px, 66px);}
 }
 .container {
-    margin-left: 50px;
     display: block;
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
-    cursor: pointer;
     font-size: 22px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -309,6 +307,8 @@ button[disabled]{
 .text2{
     font-family: "Gill Sans", sans-serif;  
     color: #ee6b1f;
+    font-size: 17px;
+    font-weight: bold;
 }
 
 .c{
@@ -326,18 +326,17 @@ min-width: 350px;
 left: 50%;
 top: 50%;
 animation: loader 2s infinite ease;
-margin-left: 75px;
 margin-top: 20px;
 
 
 }
 .container{
-width: 80%;
-height: 170px;
+width: 90%;
 padding: 30px 30px 50px;
 background-color: white;
 border-radius: 16px;
 box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+margin-left:auto;
 } 
 
 .container *{
@@ -396,9 +395,13 @@ animation: html-fill 2s forwards;
 }
 @keyframes html-fill{
 100%{
-    width: 90%;
+    width: var(--my-end-width);
 }
 }
 .span{
 font-size: 15px;
+}
+.text-justify{
+  text-align: justify;
+  text-justify: inter-word;
 }

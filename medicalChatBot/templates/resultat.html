@@ -21,19 +21,19 @@
         <h3>Your Result </h3><br> <br>
       </div>
       <div class="grouptext">
-        <p class="text">based on the information you provided to Medical ChatBot, here are the most likely causes of your
+        <p class="text">based on the information you provided to Medical ChatBot, here are the results of your
           symptoms.</p> <br>
       </div>
       <div class="grouptext">
-        <p class="text2">People with similar symptoms are advised to seek advice from a medical assistant.</p> <br> <br>
+        <p class="text2">People with similar symptoms are advised to {{ r.precaution }}.</p> <br> <br>
       </div>
 
       <div class="wrapperr">
         <div class="container">
-          <h5>{{ r.plainte }} </h5> <br>
+          <b><h4 style="font-weight: bold;">{{ r.plainte }} </h4></b><br>
           <div class="skills">
             <div class="details">
-              <span class="span">90%</span>
+              <span class="span">{{ r.probability }}%</span>
             </div>
             <div class="bar">
               <div id="html-bar"></div>
@@ -41,26 +41,10 @@
 
           </div>
 
+          <h5 class="text-justify">{{ r.description }} </h5> <br>
 
 
         </div>
-        <br>
-
-        <div class="container">
-          <h5>Migraine </h5> <br>
-          <div class="skills">
-            <div class="details">
-              <span class="span">90%</span>
-            </div>
-            <div class="bar">
-              <div id="html-bar"></div>
-            </div>
-
-          </div>
-
-        </div>
-        <br>
-
         <div class="checkoutButton">
           <a href="{% url "medicalChatBot:home" %}">
             <button class="preorder">
@@ -69,5 +53,15 @@
           </a>
         </div>
       </div>
+    </div>
+  </div>
 </body>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script>
+  $(document).ready(function () {
+    var probability = {{ r.probability }}
+    root = document.documentElement;
+    root.style.setProperty('--my-end-width', probability + "%"); 
+   });
+</script>
 </html>

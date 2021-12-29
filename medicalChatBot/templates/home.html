@@ -124,33 +124,7 @@
                     $loading.css({ "visibility": "visible" });
                     $('#container').css({ "opacity": 0.25 });
                     setTimeout(() => {
-                        //var newDoc = document.open("text/html","replace");
-                        //newDoc.write(json);
-                        //newDoc.close()
-                        $loading.css({ "visibility": "hidden" });
-                        $('#container').css({ "opacity": 1 });
-                        addChatEntryBot(json['predict'])
-                        const messagesContainer = document.getElementById("messages");
-                        let botDiv = document.createElement("div");
-                        let botButton = document.createElement("button");
-                        botDiv.id = "bot";
-                        botDiv.className = "bot response button_info";
-                        botButton.innerText = "Press To see More Informations";
                         document.location.href = '/result/'+json['predict'];
-                        /* 
-                            $.ajax({
-                            method: "POST",
-                            url: ' url "medicalChatBot:result" ',
-                            data: {
-                                'getdata': JSON.stringify(json['predict'])
-                            },
-                            dataType: 'json',
-                            success: function () {
-                                document.location.href = '/result';
-                        }}) */
-                        botDiv.appendChild(botButton);
-                        messagesContainer.appendChild(botDiv);
-                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
                     }, 2000);
 
                 } else {

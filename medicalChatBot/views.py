@@ -2,7 +2,6 @@ from tkinter import Message
 from django.shortcuts import render
 from django.http import JsonResponse
 import pandas as pd
-import numpy as np
 
 from medicalChatBot.models import Resultat
 from medicalChatBot.ML import classifier
@@ -92,16 +91,12 @@ def predict(request):
             return JsonResponse({'result':'Are you experiencing any '+str(listeproposal[indexFeatures]).replace("_", " "),'input':input},safe=False)
 
 def result(request,pred):
-    """ if request.method == 'POST':
-        r.plainte = request.POST.get('getdata', None)
-        r.histoire = "test"
-        r.examen = "test"
-        r.assesment = "test"
-        r.causes = "test" """
+    df_description=pd.read_csv('medicalChatBot/ML/symptom_description.csv')
+    df_precaution=pd.read_csv('medicalChatBot/ML/symptom_precaution.csv')
+    precaution_list=df_precaution.loc[df_precaution['prognosis'] == pred].iloc[0,1:].to_list()
     r = Resultat()
     r.plainte = pred
-    r.histoire = "test"
-    r.examen = "test"
-    r.assesment = "test"
-    r.causes = "test"
+    r.description = df_description.loc[df_description['prognosis'] == pred].iloc[0]['description']
+    r.probability = 20
+    r.precaution = ' & '.join(precaution_list)
     return render(request,"resultat.html",{'r': r})
