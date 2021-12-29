@@ -59,7 +59,7 @@
             $loading = $('.lds-roller');
             var name
             var disease_input
-            var feature_names = {{ feature_names| safe }}
+            var feature_names = {{ feature_names | safe }}
             feature_names = feature_names.map((str) => str.replace(/_/g, ' '));
         //var questions={{intialQuestions|safe}}
         addChatEntryBot("What is your name")
@@ -131,13 +131,23 @@
                         $('#container').css({ "opacity": 1 });
                         addChatEntryBot(json['predict'])
                         const messagesContainer = document.getElementById("messages");
-
                         let botDiv = document.createElement("div");
                         let botButton = document.createElement("button");
                         botDiv.id = "bot";
                         botDiv.className = "bot response button_info";
                         botButton.innerText = "Press To see More Informations";
-                        document.location.href = '/result';
+                        document.location.href = '/result/'+json['predict'];
+                        /* 
+                            $.ajax({
+                            method: "POST",
+                            url: ' url "medicalChatBot:result" ',
+                            data: {
+                                'getdata': JSON.stringify(json['predict'])
+                            },
+                            dataType: 'json',
+                            success: function () {
+                                document.location.href = '/result';
+                        }}) */
                         botDiv.appendChild(botButton);
                         messagesContainer.appendChild(botDiv);
                         messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -182,9 +192,7 @@
             messagesContainer.appendChild(userDiv);
             $('#input').attr('disabled', 'disabled')
         }
-});
-
-
+        });
     </script>
 </body>
 

@@ -78,12 +78,12 @@ def predict(request):
             input=input.replace("_"," ")
         indexFeatures+=1
         print("len list prop",listeproposal_len,"index",indexFeatures)
-        if listeproposal_len<=indexFeatures: 
+        if listeproposal_len<=indexFeatures:
             predected_disease=str(makePredict())
             print(predected_disease)
             print(predected_disease.isdigit())
             if predected_disease.isdigit()==False:
-                Message="After the diagnostic we conlused that You may have "+predected_disease
+                Message=predected_disease
             else:
                 Message="No disease !!"
 
@@ -91,9 +91,15 @@ def predict(request):
         else:
             return JsonResponse({'result':'Are you experiencing any '+str(listeproposal[indexFeatures]).replace("_", " "),'input':input},safe=False)
 
-def result(request):
+def result(request,pred):
+    """ if request.method == 'POST':
+        r.plainte = request.POST.get('getdata', None)
+        r.histoire = "test"
+        r.examen = "test"
+        r.assesment = "test"
+        r.causes = "test" """
     r = Resultat()
-    r.plainte = "test"
+    r.plainte = pred
     r.histoire = "test"
     r.examen = "test"
     r.assesment = "test"

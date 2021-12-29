@@ -1,30 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">  
-    <link rel="stylesheet" href="{% static 'css/app.css' %}">
-    <title>Resultat</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Result</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'media/icon.jpeg' %}" />
+
+
 </head>
+
 <body>
-    <div>
-        <p>Nous avons résumé toutes les informations que vous avez saisies ci-dessous.</p>
-        <h2>Plainte principale :</h2>
-        <li><ul><h1>{{ r.plainte }}</h1></ul></li>
-        <h2>Histoire de la maladie actuelle :</h2>
-        <p>{{ r.histoire }}</p>
-        <h2>Examen des systèmes :</h2>
-        <p>{{ r.examen }}</p>
-        <h2>Assesment :</h2>
-        <p>{{ r.assesment }}</p>
-        <h2>Les causes les plus probables :</h2>
-        <li><ul>{{ r.causes }}1</ul><ul>{{ r.causes }}2</ul><ul>{{ r.causes }}3</ul></li>
-    </div>
-    
-    <script src="{% static 'js/jquery.js' %}"></script>
-    <script src="{% static 'js/jquery-ui.min.js' %}"></script>  
+  <div class="wrapper">
+    <div class="overviewInfo">
+      <div>
+        <img src="{% static 'media/icon.jpeg' %}" alt="">
+        <h3>Your Result </h3><br> <br>
+      </div>
+      <div class="grouptext">
+        <p class="text">based on the information you provided to patient1st, here are the most likely causes of your
+          symptoms.</p> <br>
+      </div>
+      <div class="grouptext">
+        <p class="text2">People with similar symptoms are advised to seek advice from a medical.</p> <br> <br>
+      </div>
+
+      <div class="wrapperr">
+        <div class="container">
+          <h5>{{ r.plainte }} </h5> <br>
+          <div class="skills">
+            <div class="details">
+              <span class="span">90%</span>
+            </div>
+            <div class="bar">
+              <div id="html-bar"></div>
+            </div>
+
+          </div>
+
+
+
+        </div>
+        <br>
+
+        <div class="container">
+          <h5>Migraine </h5> <br>
+          <div class="skills">
+            <div class="details">
+              <span class="span">90%</span>
+            </div>
+            <div class="bar">
+              <div id="html-bar"></div>
+            </div>
+
+          </div>
+
+        </div>
+        <br>
+
+        <div class="checkoutButton">
+          <button class="preorder">
+            <p>Start Over</p>
+          </button>
+
+          <button class="preorderr">
+            &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+            <p>Save Conversation</p>
+          </button>
+        </div>
+      </div>
 </body>
 </html>
