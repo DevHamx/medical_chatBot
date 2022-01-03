@@ -76,7 +76,7 @@
                         $("#input").autocomplete({
                             source: feature_names
                         });
-                    }, 2000);
+                    }, 500);
                 }
                 else {
                     if (disease_input == null) {
@@ -125,7 +125,7 @@
                     $('#container').css({ "opacity": 0.25 });
                     setTimeout(() => {
                         document.location.href = '/result/'+json['predict'];
-                    }, 2000);
+                    }, 500);
 
                 } else {
                     addChatEntryBot(json['result']);
@@ -153,7 +153,7 @@
                 botText.innerText = `${product}`;
                 $('#input').removeAttr('disabled')
                 $('#input').focus()
-            }, 2000);
+            }, 500);
         }
 
         function addChatEntryUser(input) {
