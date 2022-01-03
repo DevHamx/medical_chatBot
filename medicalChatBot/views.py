@@ -97,6 +97,6 @@ def result(request,pred):
     r = Resultat()
     r.plainte = pred
     r.description = df_description.loc[df_description['prognosis'] == pred].iloc[0]['description']
-    r.probability = 20
+    r.probability = round((len(symptoms_present)/(listeproposal_len+1))*100)
     r.precaution = ' & '.join(precaution_list)
     return render(request,"resultat.html",{'r': r})
